@@ -8,7 +8,7 @@ speed = np.array([1, 1], dtype=float)
 black = 0, 0, 0
 
 gravity = 9.81
-dt = 0.1
+dt = 0.01
 acceleration = np.array([0, gravity], dtype=float)
 
 screen = pygame.display.set_mode(size)
@@ -28,6 +28,7 @@ while True:
     if ballrect.top < 0 or ballrect.bottom > height:
         speed[1] = -speed[1]
 
+    # print(speed, ballrect.x, ballrect.y)
     screen.fill(black)
     screen.blit(ball, ballrect)
     pygame.display.flip()
