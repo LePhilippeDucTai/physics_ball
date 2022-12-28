@@ -45,3 +45,6 @@ def ball_generator(screen, gravity):
     radius = gen.integers(10, 20)
     bounciness = gen.uniform(0.7, 0.95)
     return Ball(position, velocity, acceleration, radius, color, bounciness)
+
+def balls_generator(window, gravity, n_balls):
+    return [ball_generator(window, gravity) for _ in range(n_balls)]

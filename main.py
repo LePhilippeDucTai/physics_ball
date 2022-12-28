@@ -1,20 +1,18 @@
 import sys, pygame
-import numpy as np
 import time
 from pygame_screen import RectangleScreen, BallRenderer
-from ball import ball_generator
+from ball import balls_generator
 
-from dataclasses import dataclass
 
 def main():
 
-    window = RectangleScreen(400, 380)
+    window = RectangleScreen(600, 1000)
     screen = window.make()
     ball_renderer = BallRenderer(screen)
     dt = 0.1
     n_balls = 20
-    balls = [ball_generator(window, 20) for _ in range(n_balls)]
-
+    gravity = 30
+    balls = balls_generator(window, gravity, n_balls)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -26,7 +24,7 @@ def main():
             ball_renderer.display(ball)
 
         pygame.display.flip()
-        time.sleep(0.01)
+        time.sleep(0.02)
 
 
 if __name__ == "__main__":
