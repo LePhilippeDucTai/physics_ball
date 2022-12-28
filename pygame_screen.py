@@ -6,7 +6,7 @@ class RectangleScreen:
     def __init__(self, height, width):
         self.height = height
         self.width = width
-        self.background_colour = (255, 255, 255)
+        self.background_colour = (230, 230, 230)
 
     def make(self):
         self.screen = pygame.display.set_mode((self.width, self.height))

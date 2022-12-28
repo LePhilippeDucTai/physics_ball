@@ -10,8 +10,8 @@ def main():
     screen = window.make()
     ball_renderer = BallRenderer(screen)
     dt = 0.1
-    n_balls = 20
-    gravity = 30
+    n_balls = 30
+    gravity = 40
     balls = balls_generator(window, gravity, n_balls)
     while True:
         for event in pygame.event.get():

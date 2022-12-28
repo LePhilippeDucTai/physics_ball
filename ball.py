@@ -11,6 +11,7 @@ class Ball:
     radius: float
     color: tuple[int]
     bounciness: float
+    friction: float = 0.01
 
     def update(self, screen, dt):
         self.velocity += self.acceleration * dt
@@ -27,6 +28,8 @@ class Ball:
         x, y = self.position
         W, H = rect_screen.width, rect_screen.height
         r = self.radius
+        if y <= r or H - y <= r or x <= r or x >= W - r:
+            self.velocity *= 1 - self.friction
         if y < r or H - y < r:
             self.velocity *= self.floor_bounce()
             self.position[1] = r if y < r else H - r
@@ -41,10 +44,11 @@ def ball_generator(screen, gravity):
     acceleration = np.array([0, gravity])
     position = gen.uniform([0, 0], [H, W], size=2)
     velocity = gen.uniform([0, 0], [H, W], size=2)
-    color = gen.integers(low=0, high=256, size=3)
+    color = gen.integers(low=0, high=256, size=4)
     radius = gen.integers(10, 20)
     bounciness = gen.uniform(0.7, 0.95)
     return Ball(position, velocity, acceleration, radius, color, bounciness)
+
 
 def balls_generator(window, gravity, n_balls):
     return [ball_generator(window, gravity) for _ in range(n_balls)]
