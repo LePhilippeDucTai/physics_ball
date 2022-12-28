@@ -44,9 +44,9 @@ def ball_generator(screen, gravity):
     acceleration = np.array([0, gravity])
     position = gen.uniform([0, 0], [H, W], size=2)
     velocity = gen.uniform([0, 0], [H, W], size=2)
-    color = gen.integers(low=0, high=256, size=4)
-    radius = gen.integers(10, 20)
-    bounciness = gen.uniform(0.7, 0.95)
+    color = gen.integers(low=0, high=125, size=4)
+    radius = gen.integers(10, 30)
+    bounciness = gen.uniform(0.8, 0.98)
     return Ball(position, velocity, acceleration, radius, color, bounciness)
 
 

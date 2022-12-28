@@ -26,5 +26,5 @@ class BallRenderer:
             ball.color,
             ball.position,
             ball.radius,
-            ball.radius,
+            ball.radius // 3,
         )
