@@ -32,7 +32,6 @@ class Balls:
         _positions = np.array([clip_x, clip_y]).T
         to_be_bounced = self.positions != _positions
         self.positions = _positions
-
         return to_be_bounced
 
     def apply_friction(self, to_be_bounced):
@@ -50,7 +49,8 @@ class Balls:
         self.bounce(to_be_bounced)
 
     def bounce(self, to_be_bounced):
-        self.velocities = np.where(to_be_bounced, -self.velocities, self.velocities)
+        new = -self.velocities * self.bouncinesses
+        self.velocities = np.where(to_be_bounced, new, self.velocities)
 
 
 def balls_generator(window, gravity, n_balls):
@@ -60,7 +60,7 @@ def balls_generator(window, gravity, n_balls):
     positions = gen.uniform([0, 0], [W, H], size=(n_balls, 2))
     velocities = gen.uniform([-W, -H], [W, H], size=(n_balls, 2))
     radiuses = gen.integers(10, 30, size=n_balls)
-    colors = gen.integers(low=0, high=125, size=(n_balls, 4))
+    colors = gen.integers(low=0, high=200, size=(n_balls, 4))
     radiuses = gen.integers(10, 30, size=n_balls)
     bouncinesses = gen.uniform(0.8, 0.98, size=n_balls)
     return Balls(
