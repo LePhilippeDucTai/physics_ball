@@ -3,3 +3,4 @@ __pycache__/pygame.cpython-310.pyc
 __pycache__/pygame_screen.cpython-310.pyc
 __pycache__/ball.cpython-310.pyc
 *.ipynb
+*.pyc

@@ -49,18 +49,18 @@ class Ball:
             self.velocity *= 1 - self.friction
         if y < r or H - y < r:
             self.velocity *= self.floor_bounce()
-            self.position[1] = r if y < r else H - r
         if x < r or x > W - r:
             self.velocity *= self.side_bounce()
-            self.position[0] = r if x < r else W - r
+        self.position[1] = np.clip(self.position[1], a_min=r, a_max=H - r)
+        self.position[0] = np.clip(self.position[0], a_min=r, a_max=W - r)
 
 
 def ball_generator(screen, gravity):
     W, H = screen.width, screen.height
     gen = np.random.default_rng()
     acceleration = np.array([0, gravity])
-    position = gen.uniform([0, 0], [H, W], size=2)
-    velocity = gen.uniform([0, 0], [H, W], size=2)
+    position = gen.uniform([0, 0], [W, H], size=2)
+    velocity = gen.uniform([0, 0], [W, H], size=2)
     color = random.choice(LS_COLORS)
     radius = gen.integers(10, 30)
     bounciness = gen.uniform(0.8, 0.98)

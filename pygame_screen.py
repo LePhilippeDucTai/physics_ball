@@ -1,6 +1,9 @@
 import pygame
 
+from balls import Balls
+
 pygame.init()
+
 
 class RectangleScreen:
     def __init__(self, height, width):
@@ -16,15 +19,18 @@ class RectangleScreen:
     def fill(self):
         self.screen.fill(self.background_colour)
 
+
 class BallRenderer:
     def __init__(self, screen):
         self.screen = screen
 
-    def display(self, ball):
-        pygame.draw.circle(
-            self.screen,
-            ball.color,
-            ball.position,
-            ball.radius,
-            ball.radius // 3,
-        )
+    def display(self, balls: Balls):
+        n_balls = balls.n_balls
+        for i in range(n_balls):
+            pygame.draw.circle(
+                self.screen,
+                balls.colors[i],
+                balls.positions[i],
+                balls.radiuses[i],
+                balls.radiuses[i] // 3,
+            )

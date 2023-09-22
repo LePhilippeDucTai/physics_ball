@@ -3,17 +3,17 @@ import time
 
 import pygame
 
-from ball import balls_generator
+from balls import balls_generator
 from pygame_screen import BallRenderer, RectangleScreen
 
 
 def main():
-    window = RectangleScreen(600, 1000)
+    window = RectangleScreen(1000, 1200)
     screen = window.make()
     ball_renderer = BallRenderer(screen)
     dt = 0.1
     n_balls = 30
-    gravity = 40
+    gravity = 0
     balls = balls_generator(window, gravity, n_balls)
     while True:
         for event in pygame.event.get():
@@ -21,9 +21,8 @@ def main():
                 sys.exit()
 
         window.fill()
-        for ball in balls:
-            ball.update(window, dt)
-            ball_renderer.display(ball)
+        balls.update(dt)
+        ball_renderer.display(balls)
 
         pygame.display.flip()
         time.sleep(0.01)
