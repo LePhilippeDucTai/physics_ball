@@ -8,11 +8,11 @@ from pygame_screen import BallRenderer, RectangleScreen
 
 
 def main():
-    window = RectangleScreen(1000, 1200)
+    window = RectangleScreen(1000, 1500)
     screen = window.make()
     ball_renderer = BallRenderer(screen)
     dt = 0.1
-    n_balls = 30
+    n_balls = 50
     gravity = 0
     balls = balls_generator(window, gravity, n_balls)
     while True:
@@ -25,7 +25,7 @@ def main():
         ball_renderer.display(balls)
 
         pygame.display.flip()
-        time.sleep(0.01)
+        time.sleep(0.005)
 
 
 if __name__ == "__main__":

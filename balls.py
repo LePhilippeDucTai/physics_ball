@@ -32,18 +32,25 @@ class Balls:
         _positions = np.array([clip_x, clip_y]).T
         to_be_bounced = self.positions != _positions
         self.positions = _positions
+
         return to_be_bounced
+
+    def apply_friction(self, to_be_bounced):
+        has_moved = np.any(to_be_bounced, axis=1)
+        duplicate = np.array([has_moved, has_moved]).T
+        self.velocities = np.where(
+            duplicate, self.velocities * (1 - self.friction), self.velocities
+        )
 
     def update(self, dt):
         self.velocities += self.accelerations * dt
         self.positions += self.velocities * dt
         to_be_bounced = self.clip_positions()
+        self.apply_friction(to_be_bounced)
         self.bounce(to_be_bounced)
 
     def bounce(self, to_be_bounced):
-        self.velocities = np.where(
-            to_be_bounced, -self.velocities * (1 - self.friction), self.velocities
-        )
+        self.velocities = np.where(to_be_bounced, -self.velocities, self.velocities)
 
 
 def balls_generator(window, gravity, n_balls):
