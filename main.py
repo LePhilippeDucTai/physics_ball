@@ -1,11 +1,13 @@
-import sys, pygame
+import sys
 import time
-from pygame_screen import RectangleScreen, BallRenderer
+
+import pygame
+
 from ball import balls_generator
+from pygame_screen import BallRenderer, RectangleScreen
 
 
 def main():
-
     window = RectangleScreen(600, 1000)
     screen = window.make()
     ball_renderer = BallRenderer(screen)
