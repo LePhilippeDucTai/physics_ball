@@ -6,16 +6,16 @@ import numpy as np
 
 
 COLORS = {
-    "red": (249, 13, 27, 1),
-    "orange": (254, 96, 6, 1),
-    # "yellow": (253, 224, 5, 1),
-    "phlox": (236, 0, 252, 1),
-    "violet": (157, 0, 254, 1),
-    "malachite": (0, 207, 53, 1),
-    "blue": (38, 101, 189, 1),
-    "green": (59, 188, 84, 1),
+    "red": (249, 13, 27),
+    "orange": (254, 96, 6),
+    # "yellow": (253, 224, 5),
+    "phlox": (236, 0, 252),
+    "violet": (157, 0, 254),
+    "malachite": (0, 207, 53),
+    "blue": (38, 101, 189),
+    "green": (59, 188, 84),
     "cerise": (225, 45, 123),
-    # "khaki": (236, 231, 136, 1),
+    # "khaki": (236, 231, 136),
 }
 LS_COLORS = list(COLORS.values())
 
@@ -55,7 +55,7 @@ class Balls:
             duplicate, self.velocities * (1 - self.friction), self.velocities
         )
 
-    def update(self, dt):
+    def update(self, dt: float):
         self.velocities += self.accelerations * dt
         self.positions += self.velocities * dt
         to_be_bounced = self.clip_positions()
@@ -65,6 +65,17 @@ class Balls:
     def bounce(self, to_be_bounced):
         new = -self.velocities * self.bouncinesses
         self.velocities = np.where(to_be_bounced, new, self.velocities)
+
+    @property
+    def centered_positions(self):
+        return self.positions - self.radiuses[:, np.newaxis]
+
+
+def compute_collision_velocities(x1, v1, x2, v2, m1=1, m2=1):
+    scale = np.dot(v1 - v2, x1 - x2) / np.dot(x1 - x2, x1 - x2)
+    v1_p = v1 - 2 * (m2 / (m1 + m2)) * scale * (x1 - x2)
+    v2_p = v2 - 2 * (m1 / (m1 + m2)) * scale * (x2 - x1)
+    return v1_p, v2_p
 
 
 def balls_generator(window, gravity, n_balls):

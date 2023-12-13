@@ -2,19 +2,22 @@ import sys
 import time
 
 import pygame
-
+import pygame.gfxdraw
 from balls import balls_generator
 from pygame_screen import BallRenderer, RectangleScreen
 
 
 def main():
-    window = RectangleScreen(1000, 1500)
+    pygame.init()
+    window = RectangleScreen(750, 1000)
     screen = window.make()
-    ball_renderer = BallRenderer(screen)
-    dt = 0.1
-    n_balls = 50
-    gravity = 0
+
+    dt = 0.05
+    n_balls = 100
+    gravity = 20
     balls = balls_generator(window, gravity, n_balls)
+    ball_renderer = BallRenderer(screen, balls)
+    clock = pygame.time.Clock()  # get a pygame clock object
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -22,10 +25,11 @@ def main():
 
         window.fill()
         balls.update(dt)
-        ball_renderer.display(balls)
+        ball_renderer.update_positions()
 
-        pygame.display.flip()
-        time.sleep(0.005)
+        # pygame.display.flip()
+        pygame.display.update()
+        clock.tick(60)
 
 
 if __name__ == "__main__":
