@@ -17,8 +17,15 @@ from constants import (
 
 def is_close(pos_1: np.ndarray, pos_2: np.ndarray, radius_1: float, radius_2: float):
     distance = np.linalg.norm(pos_1 - pos_2, ord=2)
-    r = radius_1 + radius_2 + 0.1
+    r = radius_1 + radius_2
     return distance <= r
+
+
+def positions_correction(x1, x2, r1, r2):
+    d = np.linalg.norm(x1 - x2, ord=2)
+    mu = 0.5 * ((r1 + r2) / d - 1)
+    u = x2 - x1
+    return x1 - mu * u, x2 + mu * u
 
 
 @dataclass
@@ -56,7 +63,7 @@ class Balls:
             duplicate, self.velocities * (1 - self.friction), self.velocities
         )
 
-    def collide_two(self):
+    def collide_two(self, dt):
         n_balls = self.n_balls
         combinations = it.combinations(range(n_balls), 2)
         for i, j in combinations:
@@ -70,6 +77,9 @@ class Balls:
                 )
                 self.velocities[i] = v1_p
                 self.velocities[j] = v2_p
+                self.positions[i], self.positions[j] = positions_correction(
+                    self.positions[i], self.positions[j], radius_1, radius_2
+                )
 
     def update(self, dt: float):
         self.collide_two(dt)
