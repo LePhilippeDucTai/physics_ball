@@ -73,15 +73,15 @@ class Balls:
             pos_2, radius_2 = self.positions[j], self.radiuses[j]
             are_close = is_close(pos_1, pos_2, radius_1, radius_2)
             if are_close:
-                v1, v2 = self.velocities[i], self.velocities[j]
-                v1_p, v2_p = compute_collision_velocities(
-                    pos_1, v1, pos_2, v2, radius_1, radius_2
-                )
-                self.velocities[i] = v1_p * self.bouncinesses[i]
-                self.velocities[j] = v2_p * self.bouncinesses[j]
                 self.positions[i], self.positions[j] = positions_correction(
                     self.positions[i], self.positions[j], radius_1, radius_2
                 )
+                v1, v2 = self.velocities[i], self.velocities[j]
+                v1_p, v2_p = compute_collision_velocities(
+                    self.positions[i], v1, self.positions[j], v2, radius_1, radius_2
+                )
+                self.velocities[i] = v1_p * self.bouncinesses[i]
+                self.velocities[j] = v2_p * self.bouncinesses[j]
 
     def update(self, dt: float):
         self.collide_two(dt)
