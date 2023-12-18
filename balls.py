@@ -29,6 +29,13 @@ def positions_correction(x1, x2, r1, r2):
     return x1 - mu * u, x2 + mu * u
 
 
+def compute_collision_velocities(x1, v1, x2, v2, m1=1, m2=1):
+    scale = np.dot(v1 - v2, x1 - x2) / np.dot(x1 - x2, x1 - x2)
+    v1_p = v1 - 2 * (m2 / (m1 + m2)) * scale * (x1 - x2)
+    v2_p = v2 - 2 * (m1 / (m1 + m2)) * scale * (x2 - x1)
+    return v1_p, v2_p
+
+
 @dataclass
 class Balls:
     positions: np.ndarray
@@ -97,13 +104,6 @@ class Balls:
     @property
     def centered_positions(self):
         return self.positions - self.radiuses[:, np.newaxis]
-
-
-def compute_collision_velocities(x1, v1, x2, v2, m1=1, m2=1):
-    scale = np.dot(v1 - v2, x1 - x2) / np.dot(x1 - x2, x1 - x2)
-    v1_p = v1 - 2 * (m2 / (m1 + m2)) * scale * (x1 - x2)
-    v2_p = v2 - 2 * (m1 / (m1 + m2)) * scale * (x2 - x1)
-    return v1_p, v2_p
 
 
 def balls_generator(window, gravity, n_balls):
