@@ -12,6 +12,8 @@ from constants import (
     MAX_RADIUS,
     MIN_BOUNCINESS,
     MIN_RADIUS,
+    X_VELOCITY,
+    Y_VELOCITY,
 )
 
 
@@ -75,8 +77,8 @@ class Balls:
                 v1_p, v2_p = compute_collision_velocities(
                     pos_1, v1, pos_2, v2, radius_1, radius_2
                 )
-                self.velocities[i] = v1_p
-                self.velocities[j] = v2_p
+                self.velocities[i] = v1_p * self.bouncinesses[i]
+                self.velocities[j] = v2_p * self.bouncinesses[j]
                 self.positions[i], self.positions[j] = positions_correction(
                     self.positions[i], self.positions[j], radius_1, radius_2
                 )
@@ -110,7 +112,9 @@ def balls_generator(window, gravity, n_balls):
     gen = np.random.default_rng()
     accelerations = np.array([0, gravity])
     positions = gen.uniform([0, 0], [W, H], size=(n_balls, 2))
-    velocities = gen.uniform([-W, -H], [W, H], size=(n_balls, 2))
+    velocities = gen.uniform(
+        [-X_VELOCITY, -Y_VELOCITY], [X_VELOCITY, Y_VELOCITY], size=(n_balls, 2)
+    )
     radiuses = gen.integers(MIN_RADIUS, MAX_RADIUS, size=n_balls)
     colors = random.choices(LS_COLORS, k=n_balls)
     bouncinesses = gen.uniform(MIN_BOUNCINESS, MAX_BOUNCINESS, size=n_balls)[
