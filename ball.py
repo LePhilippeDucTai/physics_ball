@@ -2,8 +2,8 @@ import random
 from dataclasses import dataclass
 
 import numpy as np
-from balls import LS_COLORS
 
+from balls import LS_COLORS
 from pygame_screen import RectangleScreen
 
 

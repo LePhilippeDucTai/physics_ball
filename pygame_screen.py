@@ -1,5 +1,6 @@
 import pygame
 import pygame.gfxdraw
+
 from balls import Balls
 from constants import BACKGROUND_COLOR
 

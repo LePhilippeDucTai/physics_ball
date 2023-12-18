@@ -2,6 +2,7 @@ import sys
 
 import pygame
 import pygame.gfxdraw
+
 from balls import balls_generator
 from constants import DT, GRAVITY, N_BALLS, N_FRAMES, SCREEN_HEIGHT, SCREEN_WIDTH
 from pygame_screen import BallRenderer, RectangleScreen

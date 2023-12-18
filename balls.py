@@ -1,9 +1,9 @@
 import functools as ft
-from dataclasses import dataclass
-import random
 import itertools as it
-import numpy as np
+import random
+from dataclasses import dataclass
 
+import numpy as np
 
 from constants import (
     FRICTION,
