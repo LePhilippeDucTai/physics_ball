@@ -12,8 +12,7 @@ from constants import (
     MAX_RADIUS,
     MIN_BOUNCINESS,
     MIN_RADIUS,
-    X_VELOCITY,
-    Y_VELOCITY,
+    SCALE_VELOCITY,
 )
 
 
@@ -112,9 +111,7 @@ def balls_generator(window, gravity, n_balls):
     gen = np.random.default_rng()
     accelerations = np.array([0, gravity])
     positions = gen.uniform([0, 0], [W, H], size=(n_balls, 2))
-    velocities = gen.uniform(
-        [-X_VELOCITY, -Y_VELOCITY], [X_VELOCITY, Y_VELOCITY], size=(n_balls, 2)
-    )
+    velocities = gen.normal(loc=0, scale=SCALE_VELOCITY, size=(n_balls, 2))
     radiuses = gen.integers(MIN_RADIUS, MAX_RADIUS, size=n_balls)
     colors = random.choices(LS_COLORS, k=n_balls)
     bouncinesses = gen.uniform(MIN_BOUNCINESS, MAX_BOUNCINESS, size=n_balls)[
