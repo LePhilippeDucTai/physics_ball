@@ -65,7 +65,7 @@ class Balls:
             duplicate, self.velocities * (1 - self.friction), self.velocities
         )
 
-    def collide_two(self, dt):
+    def collide_two(self):
         n_balls = self.n_balls
         combinations = it.combinations(range(n_balls), 2)
         for i, j in combinations:
@@ -84,7 +84,7 @@ class Balls:
                 self.velocities[j] = v2_p * self.bouncinesses[j]
 
     def update(self, dt: float):
-        self.collide_two(dt)
+        self.collide_two()
         self.velocities += self.accelerations * dt
         self.positions += self.velocities * dt
         to_be_bounced = self.clip_positions()
