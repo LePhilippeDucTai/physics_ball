@@ -2,6 +2,7 @@ import functools as ft
 import itertools as it
 import random
 from dataclasses import dataclass
+from math import pi
 
 import numpy as np
 
@@ -29,10 +30,11 @@ def positions_correction(x1, x2, r1, r2):
     return x1 - mu * u, x2 + mu * u
 
 
-def compute_collision_velocities(x1, v1, x2, v2, m1=1, m2=1):
-    scale = np.dot(v1 - v2, x1 - x2) / np.dot(x1 - x2, x1 - x2)
-    v1_p = v1 - 2 * (m2 / (m1 + m2)) * scale * (x1 - x2)
-    v2_p = v2 - 2 * (m1 / (m1 + m2)) * scale * (x2 - x1)
+def compute_collision_velocities(x1, v1, x2, v2, m1, m2):
+    u = x1 - x2
+    v = u * np.dot(v1 - v2, u) / np.dot(u, u)
+    v1_p = v1 - 2 * (m2 / (m1 + m2)) * v
+    v2_p = v2 + 2 * (m1 / (m1 + m2)) * v
     return v1_p, v2_p
 
 
@@ -82,9 +84,13 @@ class Balls:
                 self.positions[i], self.positions[j] = positions_correction(
                     self.positions[i], self.positions[j], radius_1, radius_2
                 )
-                v1, v2 = self.velocities[i], self.velocities[j]
                 v1_p, v2_p = compute_collision_velocities(
-                    self.positions[i], v1, self.positions[j], v2, radius_1, radius_2
+                    self.positions[i],
+                    self.velocities[i],
+                    self.positions[j],
+                    self.velocities[j],
+                    pi * radius_1**2,
+                    pi * radius_2**2,
                 )
                 self.velocities[i] = v1_p * self.bouncinesses[i]
                 self.velocities[j] = v2_p * self.bouncinesses[j]
