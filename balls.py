@@ -120,9 +120,12 @@ def balls_generator(window, gravity, n_balls):
     velocities = gen.normal(loc=0, scale=SCALE_VELOCITY, size=(n_balls, 2))
     radiuses = gen.integers(MIN_RADIUS, MAX_RADIUS, size=n_balls)
     colors = random.choices(LS_COLORS, k=n_balls)
-    bouncinesses = gen.uniform(MIN_BOUNCINESS, MAX_BOUNCINESS, size=n_balls)[
-        :, np.newaxis
-    ]
+    if MIN_BOUNCINESS == MAX_BOUNCINESS:
+        bouncinesses = np.ones((n_balls, 1))
+    else:
+        bouncinesses = gen.uniform(MIN_BOUNCINESS, MAX_BOUNCINESS, size=n_balls)[
+            :, np.newaxis
+        ]
     return Balls(
         positions=positions,
         velocities=velocities,
