@@ -16,7 +16,7 @@ The Physics Ball project is a Python-based simulation that models the motion of 
 
 To run the Physics Ball project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/username/physics_ball.git`
+1. Clone the repository: `https://github.com/LePhilippeDucTai/physics_ball.git`
 2. Navigate to the project directory: `cd physics_ball`
 3. Create your virtual environment with `conda` : `conda create --name my_physics_env python=3.11 -y`
 4. Activate your environment : `conda activate my_physics_env`
