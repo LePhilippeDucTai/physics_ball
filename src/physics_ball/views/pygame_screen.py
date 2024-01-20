@@ -1,8 +1,8 @@
 import pygame
 import pygame.gfxdraw
 
-from balls import Balls
-from constants import BACKGROUND_COLOR
+from physics_ball.game.balls import Balls
+from physics_ball.game.constants import BACKGROUND_COLOR
 
 
 class RectangleScreen:

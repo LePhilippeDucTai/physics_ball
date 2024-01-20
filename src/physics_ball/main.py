@@ -3,9 +3,16 @@ import sys
 import pygame
 import pygame.gfxdraw
 
-from balls import balls_generator
-from constants import DT, GRAVITY, N_BALLS, N_FRAMES, SCREEN_HEIGHT, SCREEN_WIDTH
-from pygame_screen import BallRenderer, RectangleScreen
+from physics_ball.game.balls import balls_generator
+from physics_ball.game.constants import (
+    DT,
+    GRAVITY,
+    N_BALLS,
+    N_FRAMES,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH,
+)
+from physics_ball.views.pygame_screen import BallRenderer, RectangleScreen
 
 
 def initialize():
@@ -37,7 +44,3 @@ def main():
         ball_renderer.update_positions()
         pygame.display.update()
         clock.tick(N_FRAMES)
-
-
-if __name__ == "__main__":
-    main()

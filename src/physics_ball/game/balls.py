@@ -6,7 +6,7 @@ from math import pi
 
 import numpy as np
 
-from constants import (
+from physics_ball.game.constants import (
     FRICTION,
     LS_COLORS,
     MAX_BOUNCINESS,
