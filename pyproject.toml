@@ -5,10 +5,10 @@ build-backend = "poetry.core.masonry.api"
 name = "physics_ball"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <your@email.com>"]
+authors = ["PhilippeDucTai LÊ <le.philippe.duc.tai@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 
 [project.scripts]
 run_simulation = "physics_ball:main"
